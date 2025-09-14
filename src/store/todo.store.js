@@ -25,7 +25,7 @@ const loadStore=()=>{
     if(!localStorage.getItem('state')) return;
 
     const { todos=[], filter=Filters.All } = JSON.parse(localStorage.getItem('state'));
-    state.todo=todos;
+    state.todos=todos;
     state.filter=filter;
 
 }
