@@ -10,7 +10,9 @@ export const App=(elementId)=>{
 
     const displayTodos=()=>{
         const todos = todoStore.getTodos(todoStore.getCurrentFilter());
-        renderTodos(ElementIDs.TodoList);
+        //console.log(todos);
+        //renderTodos('.todo-list');
+        renderTodos(ElementIDs.TodoList,todos);
     }
 
     //Se ejecuta cuando la función App() se llama
