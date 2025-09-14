@@ -32,7 +32,7 @@ const loadStore=()=>{
 
 const saveStateToLocalStorage=()=>{
     localStorage.setItem('state',JSON.stringify(state));
-    console.log('pasamos');
+    //console.log('pasamos');
 
 };
 /**
@@ -86,7 +86,7 @@ const deleteTodo=(todoId)=>{
 }
 
 const deleteCompleted=()=>{
-    state.todos=state.todos.filter(todo=>todo.done);
+    state.todos=state.todos.filter(todo=>!todo.done);
     saveStateToLocalStorage();
 }
 
