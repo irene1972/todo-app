@@ -1,12 +1,13 @@
 import html from './app.html?raw';
 import todoStore, {Filters} from '../store/todo.store';
-import { renderTodos } from './use-cases';
+import { renderTodos, renderPending } from './use-cases';
 
 const ElementIDs={
     ClearCompletedButton:'.clear-completed',
     TodoList:'.todo-list',
     NewTodoInput:'#new-todo-input',
-    TodoFilters:'.filtro'
+    TodoFilters:'.filtro',
+    PendingCountLabel:'#pending-count'
 }
 
 export const App=(elementId)=>{
@@ -16,6 +17,11 @@ export const App=(elementId)=>{
         //console.log(todos);
         //renderTodos('.todo-list');
         renderTodos(ElementIDs.TodoList,todos);
+        updatePendingCount();
+    }
+
+    const updatePendingCount= ()=>{
+        renderPending(ElementIDs.PendingCountLabel);
     }
 
     //Se ejecuta cuando la función App() se llama
@@ -54,13 +60,14 @@ export const App=(elementId)=>{
 
     todoListUL.addEventListener('click', (event)=>{
         
-        const isDestroyElement=event.target.className;
+        const isDestroyElement=event.target.className==='destroy';
         const element=event.target.closest('[data-id]');
 
-        if (isDestroyElement === 'destroy'){
-            todoStore.deleteTodo(element.getAttribute('data-id'));
-            displayTodos();
-        }else return
+        if (!element || !isDestroyElement) return;
+
+        todoStore.deleteTodo(element.getAttribute('data-id'));
+        displayTodos();
+        
     });
 
     clearCompletedButton.addEventListener('click', ()=>{
